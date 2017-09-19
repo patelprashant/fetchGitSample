@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
@@ -14,6 +16,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -21,7 +24,41 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        finalProduction {
+            dimension "default"
+            applicationId "com.example.fetchgitsample"
+            resValue "string", "app_name", "Sample App"
+        }
+
+        demoProduction {
+            dimension "default"
+            applicationId "com.example.fetchgitsample.demoproduction"
+            resValue "string", "app_name", "Sample App Demo Prod"
+        }
+
+        demoTesting {
+            dimension "default"
+            applicationId "com.example.fetchgitsample.demotesting"
+            resValue "string", "app_name", "Sample App Demo Test"
+        }
+
+        mock {
+            dimension "default"
+            applicationId "com.example.fetchgitsample.mock"
+            resValue "string", "app_name", "Sample App Mock"
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
 }
+
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -32,4 +69,13 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    kapt 'com.android.databinding:compiler:3.0.0-beta6'
+
+    implementation 'android.arch.lifecycle:runtime:1.0.0'
+    implementation 'android.arch.lifecycle:extensions:1.0.0-alpha9-1'
+    kapt 'android.arch.lifecycle:compiler:1.0.0-alpha9-1'
+
 }
