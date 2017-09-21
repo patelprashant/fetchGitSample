@@ -18,9 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding.executePendingBindings()
 
         Handler().postDelayed({
-            repository.repositoryName = "This is New Sample Android App"
-            binding.repository = repository
-            binding.executePendingBindings()
+            repository.repositoryName = "This is Totally New"
         }, 2000)
 //        binding.apply {
 //            repositoryName.text = "This is Sample Android App"
