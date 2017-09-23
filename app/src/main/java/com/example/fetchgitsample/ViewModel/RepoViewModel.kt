@@ -1,20 +1,23 @@
 package com.example.fetchgitsample.ViewModel
 
+import android.databinding.ObservableField
 import com.example.fetchgitsample.data.OnDataReadyCallback
 import com.example.fetchgitsample.data.RepoData
 
 class RepoViewModel {
     var repoData: RepoData = RepoData()
-    var text: String = ""
-    var isLoading: Boolean = false
+    val text = ObservableField<String>()
+    val isLoading = ObservableField<Boolean>()
 
     val onDataReadyCallback = object : OnDataReadyCallback {
         override fun onDataReady(data: String) {
-            text = data
+            isLoading.set(false)
+            text.set(data)
         }
     }
 
     fun refreshh() {
+        isLoading.set(true)
         repoData.refreshData(onDataReadyCallback)
     }
 }
