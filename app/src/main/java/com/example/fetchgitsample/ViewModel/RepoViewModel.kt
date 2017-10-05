@@ -16,7 +16,7 @@ class RepoViewModel {
         }
     }
 
-    fun refreshh() {
+    fun refresh() {
         isLoading.set(true)
         repoData.refreshData(onDataReadyCallback)
     }
