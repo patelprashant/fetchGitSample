@@ -1,5 +1,6 @@
 package com.example.fetchgitsample
 
+import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -9,13 +10,14 @@ import com.example.fetchgitsample.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     //    private var repository = Repository("This is Sample Android App", "Prashant Patel", 1000, true)
-    private var repoViewModel = RepoViewModel ()
+//    private var repoViewModel = RepoViewModel ()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.repoViewModel = repoViewModel
+//        binding.repoViewModel = repoViewModel
+        binding.repoViewModel = ViewModelProviders.of(this).get(RepoViewModel::class.java)
         binding.executePendingBindings()
 
 //        Handler().postDelayed({
