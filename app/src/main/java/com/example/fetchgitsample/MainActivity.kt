@@ -4,10 +4,13 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import com.example.fetchgitsample.ViewModel.RepoViewModel
+import com.example.fetchgitsample.adapters.RepoRecyclerViewAdapter
 import com.example.fetchgitsample.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),
+        RepoRecyclerViewAdapter.OnItemClickListener {
     private lateinit var binding: ActivityMainBinding
     //    private var repository = Repository("This is Sample Android App", "Prashant Patel", 1000, true)
 //    private var repoViewModel = RepoViewModel ()
@@ -17,8 +20,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 //        binding.repoViewModel = repoViewModel
-        binding.repoViewModel = ViewModelProviders.of(this).get(RepoViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this).get(RepoViewModel::class.java)
+        binding.repoViewModel = viewModel
+
         binding.executePendingBindings()
+
+        binding.itemRepo.layoutManager = LinearLayoutManager(this)
+        binding.itemRepo.adapter = RepoRecyclerViewAdapter(viewModel.repositories, this)
 
 //        Handler().postDelayed({
 //            repository.repositoryName = "This is Totally New"
@@ -28,5 +36,9 @@ class MainActivity : AppCompatActivity() {
 //            repositoryOwner.text = "Prashant Patel"
 //            numberOfStars.text = "10 stars"
 //        }
+    }
+
+    override fun onItemClick(position: Int) {
+        //Not implemented
     }
 }
